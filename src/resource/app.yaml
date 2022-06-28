@@ -1,0 +1,22 @@
+app:
+  env: "development"
+  port: 8083
+  context_path: "/classroom-listener"
+  host: "localhost"
+  root_path: "/api"
+endpoint:
+  strapi-information-gateway:
+    host: "http://localhost:8080"
+    path: "/strapi-information-gateway/api/v1/strapi"
+    mapping:
+      class-rooms:
+        path: "/api/class-rooms"
+        query:
+          value: "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors]=*&populate[categories]=*&populate[Courses][populate][courses][populate]=*"
+  advisor:
+    host: "http://localhost:8081"
+    path: "/advisor-listener/api/v1/advisors/"
+  courses:
+    host: "http://localhost:8082"
+    path: "/course-listener/api/v1/courses/"
+GIN_MODE: "debug"

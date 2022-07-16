@@ -1,8 +1,8 @@
-package model
+package models
 
-import "unisun/api/classroom-listener/src/model/advisor"
+import "unisun/api/classroom-listener/src/models/advisor"
 
-type classRoom struct {
+type ClassRoom struct {
 	Id          int64                 `json:"id"`
 	Name        string                `json:"name"`
 	CreatedAt   string                `json:"createdAt"`

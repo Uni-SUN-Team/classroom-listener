@@ -12,7 +12,7 @@ endpoint:
       class-rooms:
         path: "/api/class-rooms"
         query:
-          value: "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors]=*&populate[categories]=*&populate[Courses][populate][courses][populate]=*"
+          value: "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors]=*&populate[categories]=*&populate[Courses]=*"
   advisor:
     host: "http://localhost:8081"
     path: "/advisor-listener/api/v1/advisors/"

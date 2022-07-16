@@ -3,7 +3,7 @@ package components
 import (
 	"encoding/json"
 	"log"
-	"unisun/api/classroom-listener/src/model/advisor"
+	"unisun/api/classroom-listener/src/models/advisor"
 	"unisun/api/classroom-listener/src/ports"
 )
 

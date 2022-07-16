@@ -1,0 +1,16 @@
+info:
+  contact: {}
+paths:
+  /feedback-gateway/api/v1/healcheck:
+    get:
+      description: Health checking for the service
+      operationId: HealthCheckHandler
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Health Check
+swagger: "2.0"

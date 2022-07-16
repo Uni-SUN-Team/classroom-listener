@@ -1,9 +1,14 @@
 package ports
 
-import "unisun/api/classroom-listener/src/model"
+import (
+	"unisun/api/classroom-listener/src/models"
+	"unisun/api/classroom-listener/src/models/advisor"
+)
 
 type ServiceConsumer interface {
-	GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) (*model.ServiceIncomeResponse, error)
-	GetAdvisorInfomation(id int64) (string, error)
-	GetCoursesInformation(id int64) (string, error)
+	GetInformationFormStrapi(payloadRequest models.ServiceIncomeRequest) (*models.ServiceIncomeResponse, error)
+}
+
+type ServiceAdvisor interface {
+	GetAdivisor(id string) (*advisor.ResponseAdvisors, error)
 }

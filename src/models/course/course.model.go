@@ -1,6 +1,6 @@
 package course
 
-import "unisun/api/classroom-listener/src/model/advisor"
+import "unisun/api/classroom-listener/src/models/advisor"
 
 type courses struct {
 	Data []CourseData `json:"data"`

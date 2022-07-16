@@ -1,6 +1,6 @@
-package model
+package models
 
-import "unisun/api/classroom-listener/src/model/course"
+import "unisun/api/classroom-listener/src/models/course"
 
 type courses struct {
 	Id          int64  `json:"id"`

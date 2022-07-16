@@ -1,4 +1,4 @@
-package model
+package models
 
 type video struct {
 	Id                int64           `json:"id"`

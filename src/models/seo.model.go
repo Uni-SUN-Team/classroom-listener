@@ -1,4 +1,4 @@
-package model
+package models
 
 type seo struct {
 	Id              int64         `json:"id"`

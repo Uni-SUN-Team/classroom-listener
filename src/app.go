@@ -3,6 +3,7 @@ package src
 import (
 	"strings"
 	"unisun/api/classroom-listener/docs"
+	"unisun/api/classroom-listener/src/components"
 	"unisun/api/classroom-listener/src/controllers"
 	"unisun/api/classroom-listener/src/routes"
 	"unisun/api/classroom-listener/src/services"
@@ -35,11 +36,6 @@ func App() *gin.Engine {
 
 	healController := controllers.NewControllerHealthCheckHandler()
 
-	utilAdap := utils.New()
-	serviceAdap := services.New(utilAdap)
-	constrolAdap := controllers.NewControllerClassroomAdapter(serviceAdap)
-	routeAdap := routes.NewRouteConsumerAdapter(constrolAdap)
-
 	r := gin.Default()
 	r.SetTrustedProxies([]string{"127.0.0.1"})
 	g := r.Group(strings.Join([]string{viper.GetString("app.context_path"), viper.GetString("app.root_path"), "/v1"}, ""))
@@ -47,7 +43,23 @@ func App() *gin.Engine {
 		g.GET("/healcheck", healController.HealthCheckHandler)
 		g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		g.StaticFile("/license", "./LICENSE")
-		routeAdap.Consumer(g)
+		handlerConsumer().Consumer(g)
 	}
 	return r
+}
+
+func handlerConsumer() *routes.RouteConsumerAdapter {
+	utilAdap := utils.New()
+	serviceAdap := services.New(utilAdap)
+	serviceAdvisor := services.NewServiceAdvisorAdapter(utilAdap)
+	mapAdvisor := components.NewMappingAdvisorAdap(serviceAdvisor)
+
+	serviceCourse := services.NewServiceCourseAdapter(utilAdap)
+	mapCourse := components.NewMappingCourseAdap(serviceCourse)
+
+	serviceClassRoom := services.NewServiceClassRoomPrice(utilAdap)
+	mapPrice := components.NewMappingClassRoomPriceAdap(serviceClassRoom)
+	constrolAdap := controllers.NewControllerClassroomAdapter(serviceAdap, mapAdvisor, mapCourse, mapPrice)
+	routeAdap := routes.NewRouteConsumerAdapter(constrolAdap)
+	return routeAdap
 }

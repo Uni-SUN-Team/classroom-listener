@@ -1,35 +1,30 @@
 package components
 
 import (
-	"encoding/json"
 	"log"
+	"strconv"
 	"unisun/api/classroom-listener/src/models/advisor"
 	"unisun/api/classroom-listener/src/ports"
 )
 
-type ServiceConsumerAdap struct {
-	Service ports.ServiceConsumer
+type MappingAdvisorAdap struct {
+	Service ports.ServiceAdvisor
 }
 
-func NewServiceConsumerAdap(service ports.ServiceConsumer) *ServiceConsumerAdap {
-	return &ServiceConsumerAdap{
+func NewMappingAdvisorAdap(service ports.ServiceAdvisor) *MappingAdvisorAdap {
+	return &MappingAdvisorAdap{
 		Service: service,
 	}
 }
 
-func (srv *ServiceConsumerAdap) MappingAdvisor(value []advisor.AdvisorData) ([]advisor.AdvisorData, error) {
+func (srv *MappingAdvisorAdap) MappingAdvisor(value []advisor.AdvisorData) (*[]advisor.AdvisorData, error) {
 	resultAdvisors := []advisor.AdvisorData{}
 	for _, a := range value {
-		advisorForm := advisor.ResponseAdvisor{}
-		result, err := srv.Service.GetAdvisorInfomation(a.Id)
+		result, err := srv.Service.GetAdivisor(strconv.FormatInt(a.Id, 10))
 		if err != nil {
 			log.Panic(err)
 		}
-		err = json.Unmarshal([]byte(result), &advisorForm)
-		if err != nil {
-			log.Panic(err)
-		}
-		resultAdvisors = append(resultAdvisors, advisorForm.Data)
+		resultAdvisors = append(resultAdvisors, result.Data)
 	}
-	return resultAdvisors, nil
+	return &resultAdvisors, nil
 }

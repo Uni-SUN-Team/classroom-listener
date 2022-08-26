@@ -1,17 +1,17 @@
 package models
 
 type ResponseClassRoomsSuccess struct {
-	Data       []ClassRoom `json:"data"`
-	Pagination pagination  `json:"pagination"`
+	Data []ClassRoom `json:"data"`
+	Meta struct {
+		Pagination paginationContent `json:"pagination"`
+	} `json:"meta"`
 }
 
 type ResponseClassRoomSuccess struct {
-	Data       ClassRoom  `json:"data"`
-	Pagination pagination `json:"pagination"`
-}
-
-type pagination struct {
-	Pagination paginationContent `json:"pagination"`
+	Data ClassRoom `json:"data"`
+	Meta struct {
+		Pagination paginationContent `json:"pagination"`
+	} `json:"meta"`
 }
 
 type paginationContent struct {

@@ -21,8 +21,8 @@ func NewServiceAdvisorAdapter(util ports.UtilsHTTPRequest) *ServiceAdvisorAdapte
 	}
 }
 
-func (srv *ServiceAdvisorAdapter) GetAdivisor(id string) (*advisor.ResponseAdvisors, error) {
-	path := strings.Join([]string{viper.GetString("endpoint.advisor.host"), viper.GetString("endpoint.advisor.path")}, "")
+func (srv *ServiceAdvisorAdapter) GetAdivisor(id string) (*advisor.ResponseAdvisor, error) {
+	path := strings.Join([]string{viper.GetString("endpoint.advisor.host"), viper.GetString("endpoint.advisor.path"), id}, "")
 	response, err := srv.Utils.HTTPRequest(path, constants.GET, nil)
 	if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func (srv *ServiceAdvisorAdapter) GetAdivisor(id string) (*advisor.ResponseAdvis
 		err = nil
 		defer response.Body.Close()
 	}
-	payloadAdvisor := advisor.ResponseAdvisors{}
+	payloadAdvisor := advisor.ResponseAdvisor{}
 	if err := json.Unmarshal([]byte(body), &payloadAdvisor); err != nil {
 		return nil, err
 	}
